@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
+    <title>Weather Forecast App</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <link rel="stylesheet" href="style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
@@ -19,50 +19,44 @@
         </div>
       </section>
 
-    <section class="section">
+    <section class="section user-submit">
         <div class="container has-text-centered">
             <div class="columns">
                 <div class="column is-4">
+                  <form>
                     <div class="field has-addons">
-                        <div class="control">
-                          <input class="input" type="text" placeholder="Get a forcast">
-                        </div>
-                        <div class="control">
-                          <a class="button is-info">
-                            Search for a City
-                          </a>
-                        </div>
+                      <div class="control">
+                        <input class="input" type="text" placeholder="search">
                       </div>
+                      <div class="control">
+                        <button type="submit" class="button is-primary">Submit</button>
+                      </div>
+                    </div>
+                  </form>
+                    
                 </div>
               </div>
+
               <div class="columns">
                 <div class="column is-8 is-offset-4">
                     <div class="card">
                         <div class="card-content">
-                          <p class="title">
+                          <p class="title current-date-value">
                             City Name and Date
                           </p>
                         </div>
                         <footer class="card-footer">
-                          <p class="card-footer-item">
-                            <span>
+                          <p class="card-footer-item current-temperature-value">
                               Temperature
-                            </span>
                           </p>
-                          <p class="card-footer-item">
-                            <span>
+                          <p class="card-footer-item current-humidity-value">
                               Humdity
-                            </span>
                           </p>
-                          <p class="card-footer-item">
-                            <span>
+                          <p class="card-footer-item current-windspeed-value">
                               Wind Speed
-                            </span>
                           </p>
-                          <p class="card-footer-item">
-                            <span>
+                          <p class="card-footer-item current-uv-index-value">
                               UV Index
-                            </span>
                           </p>
                         </footer>
                       </div>
@@ -80,23 +74,24 @@
                             <div class="column is-one-fifth">
                                 <div class="card">
                                     <div class="card-content">
-                                      <p class="card-footer-item">
+                                      <p class="card-footer-item date-value">
                                         Day 1 Date
                                       </p>
-                                      <p class="card-footer-item">
-                                        <span>
-                                        Day 1 Temperature Pic
-                                        </span>
+                                      <p id="icon-value" class="card-footer-item weather-value capitalize">
+          
+                                        Day 1 Weather Pic
+          
                                       </p>
-                                      <p class="card-footer-item">
-                                        <span>
+
+                                      <p class="card-footer-item temperature-value">
+          
                                           Day 1 Temperature
-                                        </span>
+          
                                       </p>
-                                      <p class="card-footer-item">
-                                        <span>
+                                      <p class="card-footer-item humidity-value">
+          
                                           Day 1 Humdity
-                                        </span>
+          
                                       </p>
                                     </div>
                                   </div>
@@ -105,46 +100,22 @@
                                 <div class="card">
                                     <div class="card-content">
                                       <p class="card-footer-item">
-                                        Day 1 Date
+                                        Day 2 Date
                                       </p>
                                       <p class="card-footer-item">
-                                        <span>
-                                        Day 1 Temperature Pic
-                                        </span>
+          
+                                        Day 2 Weather Pic
+          
                                       </p>
                                       <p class="card-footer-item">
-                                        <span>
-                                          Day 1 Temperature
-                                        </span>
+          
+                                          Day 2 Temperature
+          
                                       </p>
                                       <p class="card-footer-item">
-                                        <span>
-                                          Day 1 Humdity
-                                        </span>
-                                      </p>
-                                    </div>
-                                  </div>
-                            </div>
-                            <div class="column is-one-fifth">
-                                <div class="card">
-                                    <div class="card-content">
-                                      <p class="card-footer-item">
-                                        Day 1 Date
-                                      </p>
-                                      <p class="card-footer-item">
-                                        <span>
-                                        Day 1 Temperature Pic
-                                        </span>
-                                      </p>
-                                      <p class="card-footer-item">
-                                        <span>
-                                          Day 1 Temperature
-                                        </span>
-                                      </p>
-                                      <p class="card-footer-item">
-                                        <span>
-                                          Day 1 Humdity
-                                        </span>
+          
+                                          Day 2 Humdity
+          
                                       </p>
                                     </div>
                                   </div>
@@ -153,22 +124,22 @@
                                 <div class="card">
                                     <div class="card-content">
                                       <p class="card-footer-item">
-                                        Day 1 Date
+                                        Day 3 Date
                                       </p>
                                       <p class="card-footer-item">
-                                        <span>
-                                        Day 1 Temperature Pic
-                                        </span>
+          
+                                        Day 3 Weather Pic
+          
                                       </p>
                                       <p class="card-footer-item">
-                                        <span>
-                                          Day 1 Temperature
-                                        </span>
+          
+                                          Day 3 Temperature
+          
                                       </p>
                                       <p class="card-footer-item">
-                                        <span>
-                                          Day 1 Humdity
-                                        </span>
+          
+                                          Day 3 Humdity
+          
                                       </p>
                                     </div>
                                   </div>
@@ -177,22 +148,46 @@
                                 <div class="card">
                                     <div class="card-content">
                                       <p class="card-footer-item">
-                                        Day 1 Date
+                                        Day 4 Date
                                       </p>
                                       <p class="card-footer-item">
-                                        <span>
-                                        Day 1 Temperature Pic
-                                        </span>
+          
+                                        Day 4 Weather Pic
+          
                                       </p>
                                       <p class="card-footer-item">
-                                        <span>
-                                          Day 1 Temperature
-                                        </span>
+          
+                                          Day 4 Temperature
+          
                                       </p>
                                       <p class="card-footer-item">
-                                        <span>
-                                          Day 1 Humdity
-                                        </span>
+          
+                                          Day 4 Humdity
+          
+                                      </p>
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="column is-one-fifth">
+                                <div class="card">
+                                    <div class="card-content">
+                                      <p class="card-footer-item">
+                                        Day 5 Date
+                                      </p>
+                                      <p class="card-footer-item">
+          
+                                        Day 5 Weather Pic
+          
+                                      </p>
+                                      <p class="card-footer-item">
+          
+                                          Day 5 Temperature
+          
+                                      </p>
+                                      <p class="card-footer-item">
+          
+                                          Day 5 Humdity
+          
                                       </p>
                                     </div>
                                   </div>
@@ -206,10 +201,9 @@
                 </div>
               </div>
         </div>
-
-        
     </section>
 
   <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   </body>
 </html>
