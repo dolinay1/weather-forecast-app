@@ -10,6 +10,23 @@
     border: 1px solid black;
 }
 
-.capitalize {
+/* .card-content {
+    background-color: green;
+} */
+
+.city-title {
     text-transform: capitalize
 }
+
+.icon-description {
+    text-transform: capitalize
+}
+
+.search-bar {
+    justify-content: start;
+    margin-top: 4px;
+}
+
+/* .card-footer-item {
+    background-color: green;
+} */
