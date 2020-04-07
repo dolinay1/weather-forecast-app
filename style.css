@@ -6,25 +6,25 @@
     border: 1px solid black;
 } */
 
-.card {
+/* .card {
     border: 1px solid black;
-}
+} */
 
 /* .card-content {
     background-color: green;
 } */
 
 .city-title {
-    text-transform: capitalize
+    text-transform: capitalize;
 }
 
 .icon-description {
-    text-transform: capitalize
+    text-transform: capitalize;
 }
 
-.search-bar {
-    justify-content: start;
-    margin-top: 4px;
+.saved-search{
+    text-align: center;
+    width: 100%;
 }
 
 /* .card-footer-item {

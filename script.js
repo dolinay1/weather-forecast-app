@@ -61,6 +61,8 @@ const currentUVIndexValue = document.querySelector(".current-uv-index-value");
   let date = (today.getMonth()+1)+'/'+today.getDate() + '/' + today.getFullYear();
   currentDateValue.textContent = "(" + date + ")";
 
+  let storedCities = JSON.parse(localStorage.getItem("cities"));
+
   function clearIcon() {
     iconValue.removeChild(iconValue.firstChild);
     iconValue2.removeChild(iconValue2.firstChild);
@@ -68,13 +70,7 @@ const currentUVIndexValue = document.querySelector(".current-uv-index-value");
     iconValue4.removeChild(iconValue4.firstChild);
     iconValue5.removeChild(iconValue5.firstChild);
   }
-  
-//   icon1.src = "#";
-//   icon2.src = "#";
-//   icon3.src = "#";
-//   icon4.src = "#";
-//   icon5.src = "#";
- 
+
 userInput.addEventListener("submit", e => {
   e.preventDefault();
   const inputVal = input.value;
@@ -90,13 +86,13 @@ let userSearches = [];
 userSearches.push(inputVal);
 console.log(userSearches);
 
-let newDiv = document.createElement("div");
+let newBtn = document.createElement("button");
     // userSearches.forEach(elem => {
         
-        userInputDisplay.append(newDiv);
-        newDiv.classList.add("saved-search");
+        userInputDisplay.append(newBtn);
+        newBtn.classList.add("saved-search", "button");
         localStorage.setItem("saved-search", inputVal);
-        newDiv.innerHTML = localStorage.getItem("saved-search");
+        newBtn.innerHTML = localStorage.getItem("saved-search");
 
         console.log(userInputDisplay);
         
@@ -290,11 +286,11 @@ let newDiv = document.createElement("div");
      console.log(data);
 
 
-    currentTempValue.textContent = (Math.round(data.main.temp)) + "°F";
+    currentTempValue.textContent = "Temp: " +  (Math.round(data.main.temp)) + "°F";
 
-    currentHumidityValue.textContent = data.main.humidity + "%";
+    currentHumidityValue.textContent =  "Humidity: " + data.main.humidity + "%";
 
-    currentWindSpeedValue.textContent = data.wind.speed + " mph";
+    currentWindSpeedValue.textContent = "Windspeed: " + data.wind.speed + " mph";
 
 
     // query url for UV index
@@ -308,24 +304,24 @@ let newDiv = document.createElement("div");
     })
     .then((data) => {
   
-     currentUVIndexValue.textContent = data.value;
+     currentUVIndexValue.textContent = "UV Index: " + data.value;
     
      if (data.value > 7) {
         //  change red
         currentUVIndexValue.style.backgroundColor = "red";
-        currentUVIndexValue.style.color = "white";
+        currentUVIndexValue.style.color = "rgba(253, 253, 253, 0.801);";
      } else if (data.value < 7 && data.value > 5) {
         // change orange
         currentUVIndexValue.style.backgroundColor = "orange";
-        currentUVIndexValue.style.color = "white";
+        currentUVIndexValue.style.color = "rgba(253, 253, 253, 0.801);";
      } else if (data.value < 5 && data.value > 3) {
         //  change yellow
         currentUVIndexValue.style.backgroundColor = "yellow";
-        currentUVIndexValue.style.color = "white";
+        currentUVIndexValue.style.color = "rgba(253, 253, 253, 0.801);";
      } else if (data.value < 3) {
         //  change green
         currentUVIndexValue.style.backgroundColor = "green";
-        currentUVIndexValue.style.color = "white";
+        currentUVIndexValue.style.color = "rgba(253, 253, 253, 0.801);";
      }
  
     });
