@@ -3,7 +3,7 @@ const userInput = document.querySelector(".user-submit");
 const input = document.querySelector(".user-submit input");
 const userInputDisplay = document.getElementById("userInputDisplay");
 const savedSearch = document.querySelector(".saved-search");
-
+let userSearches = [];
 
 
 // Day 1 forcast variables
@@ -61,7 +61,17 @@ const currentUVIndexValue = document.querySelector(".current-uv-index-value");
   let date = (today.getMonth()+1)+'/'+today.getDate() + '/' + today.getFullYear();
   currentDateValue.textContent = "(" + date + ")";
 
-  let storedCities = JSON.parse(localStorage.getItem("cities"));
+  //  add to local storage
+
+
+
+function storeSearches() {
+  let storedSearches = JSON.parse(localStorage.getItem("userSearches"));
+  if (storedSearches !== null) {
+      userSearches = storedSearches;
+      console.log(userSearches)
+  }
+}
 
   function clearIcon() {
     iconValue.removeChild(iconValue.firstChild);
@@ -70,21 +80,28 @@ const currentUVIndexValue = document.querySelector(".current-uv-index-value");
     iconValue4.removeChild(iconValue4.firstChild);
     iconValue5.removeChild(iconValue5.firstChild);
   }
-
+// Initializes forecast functionality with user submit
 userInput.addEventListener("submit", e => {
   e.preventDefault();
   const inputVal = input.value;
   console.log(inputVal);
+
+  let searchHistory = input.value;
+    if (searchHistory === "") {
+        return;
+    };
+    userSearches.push(searchHistory)
+    localStorage.setItem("userSearches", JSON.stringify(userSearches));
+    console.log(userSearches);
+    // queryURL = buildQueryUrl();
+    // var fiveDayQueryURL;
 
   // set date for current day with city name
 let today = new Date();
 let date = (today.getMonth()+1)+'/'+today.getDate() + '/' + today.getFullYear();
 currentDateValue.textContent = inputVal + " " + "(" + date + ")";
 
-//  add to local storage
-let userSearches = [];
-userSearches.push(inputVal);
-console.log(userSearches);
+
 
 let newBtn = document.createElement("button");
     // userSearches.forEach(elem => {
@@ -125,7 +142,7 @@ let newBtn = document.createElement("button");
     return response.json();
   })
   .then((data) => {
-    console.log(data);
+
     clearIcon();
     // weather info for whole day
 //    console.log(data.list["0"]);
@@ -143,7 +160,7 @@ let newBtn = document.createElement("button");
   
     iconValue.value = data.list["0"].weather["0"].icon;
    let val = iconValue.value;
-   console.log(val);
+   
    src = "http://openweathermap.org/img/wn/" + val + "@2x.png";
    img = document.createElement('img');
    img.classList.add("icon-value-img");
@@ -153,7 +170,6 @@ let newBtn = document.createElement("button");
   //  iconDisplay.append(newDivIcon);
    
     img.src = src;
-    console.log(img);
     iconValue.appendChild(img)
 
    // 1st day temperature
@@ -172,7 +188,7 @@ let newBtn = document.createElement("button");
    
     iconValue2.value = data.list["8"].weather["0"].icon;
     let val2 = iconValue2.value;
-    console.log(val2);
+    
     src = "http://openweathermap.org/img/wn/" + val2 + "@2x.png";
     img = document.createElement('img');
     img.classList.add("icon-value2-img");
@@ -180,7 +196,6 @@ let newBtn = document.createElement("button");
     
    
     img.src = src;
-    console.log(img);
     iconValue2.appendChild(img)
 
     // 2nd day temperature
@@ -199,13 +214,12 @@ let newBtn = document.createElement("button");
   
    iconValue3.value = data.list["16"].weather["0"].icon;
    let val3 = iconValue3.value;
-   console.log(val3);
+   
    src = "http://openweathermap.org/img/wn/" + val3 + "@2x.png";
    img = document.createElement('img');
    img.classList.add("icon-value3-img");
 
-   img.src = src;
-   console.log(img);
+   img.src = src
    iconValue3.appendChild(img)
 
 
@@ -225,13 +239,12 @@ let newBtn = document.createElement("button");
  
     iconValue4.value = data.list["24"].weather["0"].icon;
     let val4 = iconValue4.value;
-    console.log(val4);
+    
     src = "http://openweathermap.org/img/wn/" + val4 + "@2x.png";
     img = document.createElement('img');
     img.classList.add("icon-value4-img");
 
     img.src = src;
-    console.log(img);
     iconValue4.appendChild(img)
 
     // 4th day temperature
@@ -250,13 +263,12 @@ let newBtn = document.createElement("button");
   
     iconValue5.value = data.list["32"].weather["0"].icon;
     let val5 = iconValue5.value;
-    console.log(val5);
+    
     src = "http://openweathermap.org/img/wn/" + val5 + "@2x.png";
     img = document.createElement('img');
     img.classList.add("icon-value5-img");
 
     img.src = src;
-    console.log(img);
     // iconValue5.replaceChild(img, icon5);
     iconValue5.appendChild(img)
  
@@ -267,11 +279,11 @@ let newBtn = document.createElement("button");
    }
    
    updateForecast();
-
+   storeSearches()
     
   })
   .catch(() => {
-    msg.textContent = "Please search for a valid city.";
+    currentDateValue.textContent = "Please search for a valid city.";
   });
 
 
@@ -326,40 +338,10 @@ let newBtn = document.createElement("button");
  
     });
  
-   });
+   })
+   .catch(() => {
+    currentDateValue.textContent = "Please search for a valid city.";
+  });
    
    
 });
-
-// --------------------------------------
-
-
-// function setDateTime() {
-//     const today = moment();
-//     let currentDay = document.querySelector(".current-date-value");
-//     currentDay.text(today.format("dddd, " + "MMMM " + "DD, " + "YYYY, " + "h:mm a"));
-// }
-// setDateTime();
-
-
-
- 
-
-
-  // let questionChoices = Object.values(choices)[quizProperties.questionSet];
-
-//     if (quizProperties.questionSet === Object.keys(questions).length) {
-//         console.log("done");
-//     } else {
-        
-//         questionChoices.forEach(key => {
-//             let searchItemDiv = document.createElement("searchItem");
-                
-//                 searchedItemDivDisplay.append(searchItemDiv);
-
-//                 searchItemDiv.classList.add("btn", "btn-primary", "mr-3", "mt-3", "choice");
-
-//                 searchItemDiv.innerHTML = key;
-//             });
-//     }
-
