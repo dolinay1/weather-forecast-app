@@ -3,8 +3,7 @@ const userInput = document.querySelector(".user-submit");
 const input = document.querySelector(".user-submit input");
 const unserInputDisplay = document.getElementById("userInputDisplay")
 
-//  add to local storage
-let userSearches = [];
+
 
 // Day 1 forcast variables
 const tempValue = document.getElementById("temperature-value");
@@ -55,20 +54,42 @@ const currentWindSpeedValue = document.querySelector(".current-windspeed-value")
 const currentUVIndexValue = document.querySelector(".current-uv-index-value");
 
 
-  // set date for current day weather
+  // set date for current day
   let today = new Date();
   let date = (today.getMonth()+1)+'/'+today.getDate() + '/' + today.getFullYear();
   currentDateValue.textContent = "(" + date + ")";
+
+//   icon1.src = "#";
+//   icon2.src = "#";
+//   icon3.src = "#";
+//   icon4.src = "#";
+//   icon5.src = "#";
  
 userInput.addEventListener("submit", e => {
   e.preventDefault();
   const inputVal = input.value;
   console.log(inputVal);
 
-  // set date for current day weather
+  // set date for current day with city name
 let today = new Date();
 let date = (today.getMonth()+1)+'/'+today.getDate() + '/' + today.getFullYear();
 currentDateValue.textContent = inputVal + " " + "(" + date + ")";
+
+//  add to local storage
+// let userSearches = [];
+// userSearches.push(inputVal);
+
+
+//     userSearches.forEach(elem => {
+//         let newDiv = document.createElement("div");
+//         userInputDisplay.append(newDiv);
+//         console.log(userInputDisplay);
+//         newDiv.innerHTML = elem;
+
+//     });
+
+
+
 
 //   for (let i = 0; i < userSearches.length; i++) {
 //       const searches = userSearches[i];
@@ -90,7 +111,6 @@ currentDateValue.textContent = inputVal + " " + "(" + date + ")";
 
  fetch(queryURLFiveDay)
   .then((response) => {
-    console.log(response);
     return response.json();
   })
   .then((data) => {
@@ -111,14 +131,15 @@ currentDateValue.textContent = inputVal + " " + "(" + date + ")";
     // 1st day weather icon code
   
     iconValue.value = data.list["0"].weather["0"].icon;
-   let val = iconValue.value,
+   let val = iconValue.value;
+   console.log(val);
    src = "http://openweathermap.org/img/wn/" + val + "@2x.png";
    img = document.createElement('img');
    img.classList.add("icon-value-img");
    
     img.src = src;
-   iconValue.replaceChild(img, icon1);
-   console.log(icon1);
+    console.log(img);
+   iconValue.replaceWith(img);
 
    // 1st day temperature
    tempValue.textContent = "Temp: " + (Math.round(data.list["0"].main.temp)) + "°F";
@@ -135,16 +156,16 @@ currentDateValue.textContent = inputVal + " " + "(" + date + ")";
      // 2nd day weather icon code
    
     iconValue2.value = data.list["8"].weather["0"].icon;
-    val2 = iconValue2.value,
+    let val2 = iconValue2.value;
+    console.log(val2);
     src = "http://openweathermap.org/img/wn/" + val2 + "@2x.png";
     img = document.createElement('img');
     img.classList.add("icon-value2-img");
    
     img.src = src;
+    console.log(img);
+    iconValue2.replaceWith(img);
 
-   iconValue2.replaceChild(img, icon2);
-   console.log(icon2);
- 
     // 2nd day temperature
     tempValue2.textContent = "Temp: " + (Math.round(data.list["8"].main.temp)) + "°F";
     // 2nd day humidity
@@ -160,14 +181,15 @@ currentDateValue.textContent = inputVal + " " + "(" + date + ")";
     // 3rd day weather icon code
   
    iconValue3.value = data.list["16"].weather["0"].icon;
-   val3 = iconValue3.value,
+   let val3 = iconValue3.value;
+   console.log(val3);
    src = "http://openweathermap.org/img/wn/" + val3 + "@2x.png";
    img = document.createElement('img');
    img.classList.add("icon-value3-img");
 
    img.src = src;
- 
-   iconValue3.replaceChild(img, icon3);
+   console.log(img);
+   iconValue3.replaceWith(img);
 
 
    // 3rd day temperature
@@ -185,14 +207,15 @@ currentDateValue.textContent = inputVal + " " + "(" + date + ")";
      // 4th day weather icon code
  
     iconValue4.value = data.list["24"].weather["0"].icon;
-    val4 = iconValue4.value,
+    let val4 = iconValue4.value;
+    console.log(val4);
     src = "http://openweathermap.org/img/wn/" + val4 + "@2x.png";
     img = document.createElement('img');
     img.classList.add("icon-value4-img");
 
     img.src = src;
- 
-    iconValue4.replaceChild(img, icon4);
+    console.log(img);
+    iconValue4.replaceWith(img);
 
     // 4th day temperature
     tempValue4.textContent = "Temp: " + (Math.round(data.list["24"].main.temp)) + "°F";
@@ -209,20 +232,23 @@ currentDateValue.textContent = inputVal + " " + "(" + date + ")";
      // 5th day weather icon code
   
     iconValue5.value = data.list["32"].weather["0"].icon;
-    val5 = iconValue5.value,
+    let val5 = iconValue5.value;
+    console.log(val5);
     src = "http://openweathermap.org/img/wn/" + val5 + "@2x.png";
     img = document.createElement('img');
     img.classList.add("icon-value5-img");
 
     img.src = src;
- 
+    console.log(img);
     iconValue5.replaceChild(img, icon5);
+    iconValue5.replaceWith(img)
  
     // 5th day temperature
     tempValue5.textContent = "Temp: " + (Math.round(data.list["32"].main.temp)) + "°F";
     // 5th day humidity
     humidityValue5.textContent = "Humidity: " + data.list["32"].main.humidity + "%";
    }
+  
    updateForecast();
 
     
