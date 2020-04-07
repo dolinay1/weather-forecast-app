@@ -15,4 +15,4 @@ The users previous searches are displayed in below the field submission.
 HTML, Javascript, CSS, Bulma, Openweathermap API
 
 # Screenshots:
-![Screenshot 1](Assets/img/weather-dashboard-1.png)
+![Screenshot 1](Assets/weather-dashboard-1.png)
