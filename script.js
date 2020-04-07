@@ -1,7 +1,8 @@
 // VARIABLES
 const userInput = document.querySelector(".user-submit");
 const input = document.querySelector(".user-submit input");
-const unserInputDisplay = document.getElementById("userInputDisplay")
+const userInputDisplay = document.getElementById("userInputDisplay");
+const savedSearch = document.querySelector(".saved-search");
 
 
 
@@ -12,6 +13,7 @@ const weatherValue = document.getElementById("weather-value");
 const dateValue = document.getElementById("date-value");
 const iconValue = document.querySelector(".icon-value1");
 const icon1 = document.querySelector(".icon-value-img");
+// const iconDisplay = document.querySelector(".icon-display");
 
 // Day 2 forcast variables
 const tempValue2 = document.getElementById("temperature-value2");
@@ -59,6 +61,14 @@ const currentUVIndexValue = document.querySelector(".current-uv-index-value");
   let date = (today.getMonth()+1)+'/'+today.getDate() + '/' + today.getFullYear();
   currentDateValue.textContent = "(" + date + ")";
 
+  function clearIcon() {
+    iconValue.removeChild(iconValue.firstChild);
+    iconValue2.removeChild(iconValue2.firstChild);
+    iconValue3.removeChild(iconValue3.firstChild);
+    iconValue4.removeChild(iconValue4.firstChild);
+    iconValue5.removeChild(iconValue5.firstChild);
+  }
+  
 //   icon1.src = "#";
 //   icon2.src = "#";
 //   icon3.src = "#";
@@ -76,31 +86,36 @@ let date = (today.getMonth()+1)+'/'+today.getDate() + '/' + today.getFullYear();
 currentDateValue.textContent = inputVal + " " + "(" + date + ")";
 
 //  add to local storage
-// let userSearches = [];
-// userSearches.push(inputVal);
+let userSearches = [];
+userSearches.push(inputVal);
+console.log(userSearches);
+
+let newDiv = document.createElement("div");
+    // userSearches.forEach(elem => {
+        
+        userInputDisplay.append(newDiv);
+        newDiv.classList.add("saved-search");
+        localStorage.setItem("saved-search", inputVal);
+        newDiv.innerHTML = localStorage.getItem("saved-search");
+
+        console.log(userInputDisplay);
+        
+
+    // });
+    // newDiv.innerHTML = localStorage.getItem("saved-search");
 
 
-//     userSearches.forEach(elem => {
-//         let newDiv = document.createElement("div");
-//         userInputDisplay.append(newDiv);
-//         console.log(userInputDisplay);
-//         newDiv.innerHTML = elem;
 
-//     });
+  // for (let i = 0; i < userSearches.length; i++) {
+  //     const searches = userSearches[i];
+  //       searches.push(inputVal);
+  //       let newDiv = document.createElement("div");
+  //       userInputDisplay.append(newDiv);
+  //       newDiv.classList.add("saved-search");
+  //       newDiv.innerHTML = inputVal;
 
-
-
-
-//   for (let i = 0; i < userSearches.length; i++) {
-//       const searches = userSearches[i];
-//         searches.push(inputVal);
-//         let newDiv = document.createElement("div");
-//         userInputDisplay.append(newDiv);
-//         // newDiv.classList.add("");
-//         newDiv.innerHTML = inputVal;
-
-//         console.log(userSearches)
-
+  //       console.log(userSearches)
+  // }
   
 
 
@@ -115,7 +130,7 @@ currentDateValue.textContent = inputVal + " " + "(" + date + ")";
   })
   .then((data) => {
     console.log(data);
-
+    clearIcon();
     // weather info for whole day
 //    console.log(data.list["0"]);
     
@@ -136,10 +151,14 @@ currentDateValue.textContent = inputVal + " " + "(" + date + ")";
    src = "http://openweathermap.org/img/wn/" + val + "@2x.png";
    img = document.createElement('img');
    img.classList.add("icon-value-img");
+
+  //  let newDivIcon = document.createElement("div");
+  //  newDivIcon.classList.add("card-footer-item", "capitalize", "icon-value1")
+  //  iconDisplay.append(newDivIcon);
    
     img.src = src;
     console.log(img);
-   iconValue.replaceWith(img);
+    iconValue.appendChild(img)
 
    // 1st day temperature
    tempValue.textContent = "Temp: " + (Math.round(data.list["0"].main.temp)) + "°F";
@@ -161,10 +180,12 @@ currentDateValue.textContent = inputVal + " " + "(" + date + ")";
     src = "http://openweathermap.org/img/wn/" + val2 + "@2x.png";
     img = document.createElement('img');
     img.classList.add("icon-value2-img");
+
+    
    
     img.src = src;
     console.log(img);
-    iconValue2.replaceWith(img);
+    iconValue2.appendChild(img)
 
     // 2nd day temperature
     tempValue2.textContent = "Temp: " + (Math.round(data.list["8"].main.temp)) + "°F";
@@ -189,7 +210,7 @@ currentDateValue.textContent = inputVal + " " + "(" + date + ")";
 
    img.src = src;
    console.log(img);
-   iconValue3.replaceWith(img);
+   iconValue3.appendChild(img)
 
 
    // 3rd day temperature
@@ -215,7 +236,7 @@ currentDateValue.textContent = inputVal + " " + "(" + date + ")";
 
     img.src = src;
     console.log(img);
-    iconValue4.replaceWith(img);
+    iconValue4.appendChild(img)
 
     // 4th day temperature
     tempValue4.textContent = "Temp: " + (Math.round(data.list["24"].main.temp)) + "°F";
@@ -240,22 +261,22 @@ currentDateValue.textContent = inputVal + " " + "(" + date + ")";
 
     img.src = src;
     console.log(img);
-    iconValue5.replaceChild(img, icon5);
-    iconValue5.replaceWith(img)
+    // iconValue5.replaceChild(img, icon5);
+    iconValue5.appendChild(img)
  
     // 5th day temperature
     tempValue5.textContent = "Temp: " + (Math.round(data.list["32"].main.temp)) + "°F";
     // 5th day humidity
     humidityValue5.textContent = "Humidity: " + data.list["32"].main.humidity + "%";
    }
-  
+   
    updateForecast();
 
     
+  })
+  .catch(() => {
+    msg.textContent = "Please search for a valid city.";
   });
-
-
-  
 
 
   let queryURLDaily = "https://api.openweathermap.org/data/2.5/weather?q=" + inputVal + "&appid=" + APIKey + "&units=imperial";
@@ -276,7 +297,7 @@ currentDateValue.textContent = inputVal + " " + "(" + date + ")";
     currentWindSpeedValue.textContent = data.wind.speed + " mph";
 
 
-
+    // query url for UV index
     let lon = data.coord.lon;
     let lat = data.coord.lat;
     let queryURLUV = "http://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + lat + "&lon=" + lon;
@@ -310,6 +331,7 @@ currentDateValue.textContent = inputVal + " " + "(" + date + ")";
     });
  
    });
+   
    
 });
 
